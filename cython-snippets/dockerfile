@@ -1,0 +1,27 @@
+FROM almalinux:8
+
+RUN dnf upgrade -y \
+    && dnf install -y --nodocs "dnf-command(config-manager)"
+
+RUN dnf config-manager --set-enabled powertools
+
+#  dnf provides only 1.66
+RUN dnf group install -y --nodocs "Development Tools" \
+    && dnf install -y --nodocs \
+    cmake \
+    gcc \
+    python38 \
+    python38-Cython \
+    python38-devel \
+    python38-pip \
+    pkgconf-pkg-config \
+    curl-devel \
+    protobuf-devel \
+    openssl-devel \
+    boost-devel \
+    git
+
+RUN pip3 install \
+    protobuf \
+    websockets \
+    cython==0.29.7

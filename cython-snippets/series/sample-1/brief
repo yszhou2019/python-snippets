@@ -1,0 +1,4 @@
+
+`cdef extern` is just a declariation and connected to the cpp source file
+
+the only function or class `foo` modules has is `def call_foo()` function, a python function

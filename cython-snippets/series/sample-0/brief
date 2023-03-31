@@ -1,0 +1,18 @@
+- setup.py : indicates how to install this package (cython compile to c source code & gcc compile to .so)
+- hello.pyx : cython source code
+
+build
+```
+python setup.py build_ext --inplace build_ext
+```
+
+clean
+```
+rm -rf hello.c hello.cpython-38-x86_64-linux-gnu.so build
+```
+
+usage
+```
+import hello
+hello.hello()
+```
