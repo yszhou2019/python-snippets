@@ -1,0 +1,6 @@
+Based on what Python calls a “built-in type”, however, Cython supports a second kind of class: extension types, sometimes referred to as “cdef classes” due to the Cython language keywords used for their declaration.
+The main difference is that they **use a C struct to store their fields and methods instead of a Python dict**. This allows them to store arbitrary C types in their fields without requiring a Python wrapper for them, and to access fields and methods directly at the C level without passing through a Python dictionary lookup.
+The `cpdef` command (or @cython.ccall in Python syntax) **makes two versions of the method available; one fast for use from Cython and one slower for use from Python**.
+
+
+https://cython.readthedocs.io/en/latest/src/tutorial/cdef_classes.html

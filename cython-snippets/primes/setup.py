@@ -1,0 +1,10 @@
+from setuptools import setup
+from Cython.Build import cythonize
+
+setup(
+    ext_modules=cythonize(
+        ['primes.pyx',                  # Cython code file with primes() function
+         'primes_python_compiled.py',   # Python code file with primes() function
+         'primes_cpp.pyx'],             # Cython code with cpp
+        annotate=True),                 # enables generation of the html annotation file
+)
