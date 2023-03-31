@@ -1,0 +1,1 @@
+cpdef int foo()
