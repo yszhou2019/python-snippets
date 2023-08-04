@@ -1,0 +1,46 @@
+
+
+## patch
+
+Mainly Usage
+- `return_value`, single constant return value
+- `side_effect`, different return value or exceptions
+
+### How to patch a method?
+
+What's patch() like? It's just like
+1. create a new MagicMock()
+2. set its `return_value` or `side_effect`
+3. hook it into the method you want to replace
+
+
+In the unittest.mock library, both side_effect and return_value are attributes that can be used to control the behavior of mocked objects. They are often used in conjunction with the patch function to customize the return value or the side effects of a mock.
+
+```python
+def foo():
+    pass
+
+with patch(module.foo) as mock_func:
+    mock_func.side_effect = [1, 2]
+    result_1 = foo() # first call
+    result_2 = foo() # second call
+```
+
+`return_value`:
+
+`return_value` is an attribute that allows you to specify the return value of a mocked object when it is called. It sets a fixed value that will be returned every time the mocked object is called.
+It is useful when you want to **provide a constant value as the return result** for the mocked function.
+If **return_value is set, it takes precedence over any side_effect** that might be defined for the mock.
+
+`side_effect`:
+
+side_effect is an attribute that allows you to specify a function or iterable that will be called or returned when the mocked object is called. It provides a more flexible way to control the behavior of the mock and simulate different scenarios during testing.
+It is useful when you want to perform custom actions or return different values based on different inputs or conditions during testing.
+If side_effect is set, it will be used to determine the return value or action of the mock, and return_value will be ignored.
+
+https://realpython.com/python-mock-library/
+https://www.pythontutorial.net/python-unit-testing/python-patch/
+
+### How to patch a class method?
+
+### How to patch a init method of a class?
