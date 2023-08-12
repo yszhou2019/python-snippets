@@ -1,6 +1,10 @@
 
 
-## patch
+## patch (Mock a method or class method)
+
+Operating Principle:
+- Mock() is used to create a object, which can be appended kinds of attritubes.
+- While MagicMock() is used to create a function, by which we can mimic specific return value or exceptions, and then patch the magic method to normal method or class method.
 
 Mainly Usage
 - `return_value`, single constant return value
