@@ -1,0 +1,30 @@
+
+## Asyncio Coroutine
+
+Q1: What's a coroutine? What's a task?
+A: Those functions with modifier `async` are coroutines. That's, Coroutine is a static concept.
+While tasks are registered in EventLoop, with or without an expected time before return, which
+is a dynamic concept. Just like program and process. When a coroutine is executed, or invokes
+other coroutines, it'll push more tasks in event loop.
+
+Q2: How to acquire our expected return value of a coroutine?
+A: To acquire the expected return value, you should use `await`.
+
+Q3: How to create a task (how to register/push a task in queue)?
+A: asyncio.create_task
+
+Q4: What's the mechanism of `await`? What will happen?
+A: Only when we're invoking a function with modifier `async`, the current code will yield CPU
+control to event loop. That's, context switch happens only when we're invoking `async` functions.
+
+There are two ways for a task to yield CPU to event loop:
+1. it invokes another async function by `await`
+2. it finishes its execution
+
+Quick summary:
+await async function = task registery (push onto queue) + wait return from event loop
+asyncio.create_task = task registery (push onto queue)
+await task = wait return from event loop
+
+TODO generator mechanism
+TODO mechanism of `await` future, coroutine
