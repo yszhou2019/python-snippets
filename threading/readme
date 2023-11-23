@@ -1,0 +1,60 @@
+
+## threading.Condition
+
+Quick review:
+1. Without condvar, we need busy loop (polling)
+   With condvar, we can avoid wasting CPU time
+2. Each condvar, owns a queue, containing all waiters (threads or
+   processes waiting) for that event
+3. condvar mainly provides two methods, notify() and wait_for()
+
+Intro
+
+When we do a wait, usually we'll give a prediction to indicate when
+we can return from that event. That's, the prediction tells us the
+event we want. wait_for() keeps waiting for the event until prediction
+holds.
+
+
+Q1: When could a thread/process turn to RUNNABLE from SLEEPING?
+A: A short answer, when we're invoking condvar.notify() or wakeup().
+
+When acquiring a sleeplock fails, the working object will change
+its state from RUNNABLE to SLEEPING, waiting for the next time being
+scheduled.
+
+When we want to wakeup/notify those sleeping workers, we'll invoke notify
+to check all threads/processes and check the sleeping channel. Change all
+state from SLEEPING to RUNNABLE.
+
+To make wakeup/notify more efficient, we'll use a queue to store those
+objects waiting for the specific sleeping channel.
+
+In short, when we're invoking wait() in Python, current thread will
+push itself into the waiter queue of Condition and turn to SLEEPING.
+Only when other threads invoke notify(), which will change those
+waiters from SLEEPING to RUNNABLE, can those blocking threads run.
+
+Q2: Anything about `Condition.__enter__()` and `Condition.__exit()__`?
+A: It'll invoke dunder methods of class threading.Lock, while the actural
+implementation is inside C source file. It simply acquires and releases
+the underlying lock.
+
+
+## threading.Lock
+
+
+
+## threading.Event
+
+Quick review:
+1. We can treat Event as a bool variable protected by a condvar.
+2. threading.Event is shared among multiple user routines.
+
+
+TODO
+threading.Thread
+threading.Semaphore
+threading.Barrier
+
+https://github.com/python/cpython/blob/3.12/Lib/threading.py
